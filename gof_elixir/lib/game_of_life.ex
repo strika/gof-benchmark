@@ -1,6 +1,6 @@
 defmodule GameOfLife do
   @moduledoc """
-  Documentation for GameOfLife.
+  Game Of Life implementation in Elixir.
   """
 
   @doc """
