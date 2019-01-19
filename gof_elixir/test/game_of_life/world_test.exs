@@ -12,4 +12,16 @@ defmodule GameOfLife.WorldTest do
       }
     end
   end
+
+  describe "World.set/4" do
+    test "sets the given state in coordinates" do
+      world = GameOfLife.World.create(3)
+
+      assert GameOfLife.World.set(world, 1, 2, 1) == %{
+        0 => %{ 0 => 0, 1 => 0, 2 => 0 },
+        1 => %{ 0 => 0, 1 => 0, 2 => 1 },
+        2 => %{ 0 => 0, 1 => 0, 2 => 0 }
+      }
+    end
+  end
 end
