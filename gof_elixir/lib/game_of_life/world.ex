@@ -13,4 +13,11 @@ defmodule GameOfLife.World do
   def set(world, x, y, state) do
     put_in(world[x][y], state)
   end
+
+  @doc """
+  Get state of cell in the coordinates.
+  """
+  def get(world, x, y) do
+    world[x][y]
+  end
 end

@@ -24,4 +24,16 @@ defmodule GameOfLife.WorldTest do
       }
     end
   end
+
+  describe "World.get/3" do
+    test "gets cell state" do
+      world = %{
+        0 => %{ 0 => 0, 1 => 0, 2 => 0 },
+        1 => %{ 0 => 0, 1 => 1, 2 => 0 },
+        2 => %{ 0 => 0, 1 => 0, 2 => 0 }
+      }
+
+      assert GameOfLife.World.get(world, 1, 1) == 1
+    end
+  end
 end
