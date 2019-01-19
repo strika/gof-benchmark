@@ -36,4 +36,21 @@ defmodule GameOfLife.WorldTest do
       assert GameOfLife.World.get(world, 1, 1) == 1
     end
   end
+
+  describe "World.alive_in_neighborhood/3" do
+    setup do
+      %{
+        0 => %{ 0 => 1, 1 => 1, 2 => 0 },
+        1 => %{ 0 => 1, 1 => 1, 2 => 0 },
+        2 => %{ 0 => 0, 1 => 0, 2 => 1 },
+      }
+    end
+
+    test "returns number of alive cells in neighborhood", world do
+      assert GameOfLife.World.alive_in_neighborhood(world, 0, 0) == 4
+      assert GameOfLife.World.alive_in_neighborhood(world, 0, 1) == 4
+      assert GameOfLife.World.alive_in_neighborhood(world, 1, 1) == 5
+      assert GameOfLife.World.alive_in_neighborhood(world, 2, 2) == 2
+    end
+  end
 end
