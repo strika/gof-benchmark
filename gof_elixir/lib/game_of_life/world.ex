@@ -3,8 +3,7 @@ defmodule GameOfLife.World do
   Creates a world of given size where all cells are dead.
   """
   def create(size) do
-    for _ <- 1..size do
-      for _ <- 1..size, do: 0
-    end
+    row = for k <- 0..(size - 1), into: %{}, do: {k, 0}
+    for k <- 0..(size - 1), into: %{}, do: {k, row}
   end
 end
