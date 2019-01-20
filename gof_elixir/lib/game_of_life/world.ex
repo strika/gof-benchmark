@@ -22,6 +22,13 @@ defmodule GameOfLife.World do
   end
 
   @doc """
+  Returns `true` if the cell defined by coordinates is alive.
+  """
+  def alive?(world, x, y) do
+    get(world, x, y) == 1
+  end
+
+  @doc """
   Returns number of alive cells in neigborhood defined by coordinates.
   """
   def alive_in_neighborhood(world, x, y) do

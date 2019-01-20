@@ -37,6 +37,19 @@ defmodule GameOfLife.WorldTest do
     end
   end
 
+  describe "World.alive?/3" do
+    test "gets cell state" do
+      world = %{
+        0 => %{ 0 => 0, 1 => 0, 2 => 0 },
+        1 => %{ 0 => 0, 1 => 1, 2 => 0 },
+        2 => %{ 0 => 0, 1 => 0, 2 => 0 }
+      }
+
+      assert !GameOfLife.World.alive?(world, 0, 0)
+      assert GameOfLife.World.alive?(world, 1, 1)
+    end
+  end
+
   describe "World.alive_in_neighborhood/3" do
     setup do
       %{
