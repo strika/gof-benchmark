@@ -30,7 +30,8 @@ defmodule GameOfLife.World do
 
   defp neighborhood(world, x, y) do
     for i <- (x - 1)..(x + 1),
-        j <- (y - 1)..(x + 1) do
+        j <- (y - 1)..(x + 1),
+        i != x || j != y do
           world
           |> Map.get(i, %{})
           |> Map.get(j, 0)

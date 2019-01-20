@@ -47,10 +47,10 @@ defmodule GameOfLife.WorldTest do
     end
 
     test "returns number of alive cells in neighborhood", world do
-      assert GameOfLife.World.alive_in_neighborhood(world, 0, 0) == 4
-      assert GameOfLife.World.alive_in_neighborhood(world, 0, 1) == 4
-      assert GameOfLife.World.alive_in_neighborhood(world, 1, 1) == 5
-      assert GameOfLife.World.alive_in_neighborhood(world, 2, 2) == 2
+      assert GameOfLife.World.alive_in_neighborhood(world, 0, 0) == 3
+      assert GameOfLife.World.alive_in_neighborhood(world, 0, 1) == 3
+      assert GameOfLife.World.alive_in_neighborhood(world, 1, 1) == 4
+      assert GameOfLife.World.alive_in_neighborhood(world, 2, 2) == 1
     end
   end
 end
