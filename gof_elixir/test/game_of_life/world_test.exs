@@ -1,7 +1,7 @@
 defmodule GameOfLife.WorldTest do
   use ExUnit.Case, async: true
 
-  describe "World.create/1" do
+  describe ".create/1" do
     test "creates world of given size" do
       world = GameOfLife.World.create(3)
 
@@ -13,7 +13,7 @@ defmodule GameOfLife.WorldTest do
     end
   end
 
-  describe "World.set/4" do
+  describe ".set/4" do
     test "sets the given state in coordinates" do
       world = GameOfLife.World.create(3)
 
@@ -25,7 +25,7 @@ defmodule GameOfLife.WorldTest do
     end
   end
 
-  describe "World.get/3" do
+  describe ".get/3" do
     test "gets cell state" do
       world = %{
         0 => %{ 0 => 0, 1 => 0, 2 => 0 },
@@ -37,7 +37,7 @@ defmodule GameOfLife.WorldTest do
     end
   end
 
-  describe "World.alive?/3" do
+  describe ".alive?/3" do
     test "gets cell state" do
       world = %{
         0 => %{ 0 => 0, 1 => 0, 2 => 0 },
@@ -50,7 +50,7 @@ defmodule GameOfLife.WorldTest do
     end
   end
 
-  describe "World.alive_in_neighborhood/3" do
+  describe ".alive_in_neighborhood/3" do
     setup do
       %{
         0 => %{ 0 => 1, 1 => 1, 2 => 0 },
