@@ -72,4 +72,20 @@ defmodule GameOfLifeTest do
       assert GameOfLife.next_cell_state(world, 1, 1) == 0
     end
   end
+
+  describe ".next_world_state/1" do
+    test "calculates the next state of the world" do
+      world = %{
+        0 => %{ 0 => 0, 1 => 1, 2 => 0 },
+        1 => %{ 0 => 0, 1 => 1, 2 => 0 },
+        2 => %{ 0 => 0, 1 => 1, 2 => 0 }
+      }
+
+      assert GameOfLife.next_world_state(world) == %{
+        0 => %{ 0 => 0, 1 => 0, 2 => 0 },
+        1 => %{ 0 => 1, 1 => 1, 2 => 1 },
+        2 => %{ 0 => 0, 1 => 0, 2 => 0 }
+      }
+    end
+  end
 end

@@ -13,4 +13,11 @@ defmodule GameOfLife do
       _ -> 0
     end
   end
+
+  @doc """
+  It calculates the next state of all cells of the world.
+  """
+  def next_world_state(world) do
+    world
+  end
 end
