@@ -1,4 +1,13 @@
 defmodule GameOfLife.World do
+  use Agent
+
+  @doc """
+  Creates a new world.
+  """
+  def start_link(size) do
+    Agent.start_link(fn -> create(size) end)
+  end
+
   @doc """
   Creates a world of given `size` where all cells are dead.
   """
@@ -11,14 +20,14 @@ defmodule GameOfLife.World do
   Sets the given `state` to the cooordinates in `world`.
   """
   def set(world, x, y, state) do
-    put_in(world[x][y], state)
+    Agent.update(world, fn world -> put_in(world[x][y], state) end)
   end
 
   @doc """
   Get state of cell in the coordinates.
   """
   def get(world, x, y) do
-    world[x][y]
+    Agent.get(world, fn world -> Map.get(Map.get(world, x, %{}), y, 0) end)
   end
 
   @doc """
@@ -39,9 +48,7 @@ defmodule GameOfLife.World do
     for i <- (x - 1)..(x + 1),
         j <- (y - 1)..(x + 1),
         i != x || j != y do
-          world
-          |> Map.get(i, %{})
-          |> Map.get(j, 0)
+          get(world, i, j)
         end
   end
 end
