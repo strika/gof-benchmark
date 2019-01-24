@@ -27,31 +27,4 @@ defmodule GameOfLife.WorldTest do
       }
     end
   end
-
-  describe ".get/3" do
-    test "gets cell state", %{world: world} do
-      assert GameOfLife.World.get(world, 1, 1) == 0
-    end
-  end
-
-  describe ".alive?/3" do
-    test "gets cell state", %{world: world} do
-      assert !GameOfLife.World.alive?(world, 0, 0)
-    end
-  end
-
-  describe ".alive_in_neighborhood/3" do
-    test "returns number of alive cells in neighborhood", %{world: world} do
-      GameOfLife.World.set(world, 0, 0, 1)
-      GameOfLife.World.set(world, 0, 1, 1)
-      GameOfLife.World.set(world, 1, 0, 1)
-      GameOfLife.World.set(world, 1, 1, 1)
-      GameOfLife.World.set(world, 2, 2, 1)
-
-      assert GameOfLife.World.alive_in_neighborhood(world, 0, 0) == 3
-      assert GameOfLife.World.alive_in_neighborhood(world, 0, 1) == 3
-      assert GameOfLife.World.alive_in_neighborhood(world, 1, 1) == 4
-      assert GameOfLife.World.alive_in_neighborhood(world, 2, 2) == 1
-    end
-  end
 end

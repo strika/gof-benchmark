@@ -88,4 +88,20 @@ defmodule GameOfLifeTest do
       }
     end
   end
+
+  describe ".update/4" do
+    test "calculates the next state of the cell", %{world: world} do
+      GameOfLife.World.set(world, 0, 1, 1)
+      GameOfLife.World.set(world, 1, 1, 1)
+      GameOfLife.World.set(world, 2, 1, 1)
+
+      world_state = Agent.get(world, fn state -> state end)
+
+      GameOfLife.Cell.update(world, world_state, 0, 1)
+      GameOfLife.Cell.update(world, world_state, 1, 0)
+
+      assert GameOfLife.World.get(world, 0, 1) == 0
+      assert GameOfLife.World.get(world, 1, 0) == 1
+    end
+  end
 end

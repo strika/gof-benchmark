@@ -2,22 +2,34 @@ defmodule GameOfLife.CellTest do
   use ExUnit.Case, async: true
 
   setup do
-    cell = start_supervised!(GameOfLife.Cell)
-    world = start_supervised!({GameOfLife.World, 3})
-    %{cell: cell, world: world}
+    world = %{
+      0 => %{ 0 => 0, 1 => 1, 2 => 0 },
+      1 => %{ 0 => 0, 1 => 1, 2 => 0 },
+      2 => %{ 0 => 0, 1 => 1, 2 => 0 }
+    }
+    %{world: world}
   end
 
-  describe ".update_state/3" do
-    test "calculates the next state of the cell", %{cell: cell, world: world} do
-      GameOfLife.World.set(world, 0, 1, 1)
-      GameOfLife.World.set(world, 1, 1, 1)
-      GameOfLife.World.set(world, 2, 1, 1)
+  describe ".state/3" do
+    test "gets cell state", %{world: world} do
+      assert GameOfLife.Cell.state(world, 0, 0) == 0
+      assert GameOfLife.Cell.state(world, 1, 1) == 1
+    end
+  end
 
-      GameOfLife.Cell.update_state(cell, world, 0, 1)
-      assert GameOfLife.World.get(world, 0, 1) == 0
+  describe ".alive?/3" do
+    test "gets cell state", %{world: world} do
+      assert !GameOfLife.Cell.alive?(world, 0, 0)
+      assert GameOfLife.Cell.alive?(world, 1, 1)
+    end
+  end
 
-      GameOfLife.Cell.update_state(cell, world, 1, 0)
-      assert GameOfLife.World.get(world, 1, 0) == 1
+  describe ".alive_in_neighborhood/3" do
+    test "returns number of alive cells in neighborhood", %{world: world} do
+      assert GameOfLife.Cell.alive_in_neighborhood(world, 0, 0) == 2
+      assert GameOfLife.Cell.alive_in_neighborhood(world, 0, 1) == 1
+      assert GameOfLife.Cell.alive_in_neighborhood(world, 1, 1) == 2
+      assert GameOfLife.Cell.alive_in_neighborhood(world, 2, 2) == 2
     end
   end
 end
