@@ -13,9 +13,14 @@ defmodule GameOfLife do
 
 
   @doc """
-  It calculates the next state of all cells of the world.
+  It calculates the next state of all cells of the world and it updates the
+  world.
   """
-  def next_world_state(world) do
-    world
+  def update_world(world) do
+    world_state = GameOfLife.World.state(world)
+    for x <- Map.keys(world_state),
+        y <- Map.keys(world_state[x]) do
+          update_cell(world, world_state, x, y)
+        end
   end
 end

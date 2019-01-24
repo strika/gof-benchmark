@@ -3,18 +3,19 @@ defmodule GameOfLifeTest do
 
   setup do
     world = start_supervised!({GameOfLife.World, 3})
+
+    GameOfLife.World.set(world, 0, 1, 1)
+    GameOfLife.World.set(world, 1, 1, 1)
+    GameOfLife.World.set(world, 2, 1, 1)
+
     %{world: world}
   end
 
-  describe ".next_world_state/1" do
-    test "calculates the next state of the world" do
-      world = %{
-        0 => %{ 0 => 0, 1 => 1, 2 => 0 },
-        1 => %{ 0 => 0, 1 => 1, 2 => 0 },
-        2 => %{ 0 => 0, 1 => 1, 2 => 0 }
-      }
+  describe ".update_world/1" do
+    test "calculates the next state of the world", %{world: world} do
+      GameOfLife.update_world(world)
 
-      assert GameOfLife.next_world_state(world) == %{
+      assert GameOfLife.World.state(world) == %{
         0 => %{ 0 => 0, 1 => 0, 2 => 0 },
         1 => %{ 0 => 1, 1 => 1, 2 => 1 },
         2 => %{ 0 => 0, 1 => 0, 2 => 0 }
@@ -24,10 +25,6 @@ defmodule GameOfLifeTest do
 
   describe ".update_cell/4" do
     test "calculates the next state of the cell", %{world: world}  do
-      GameOfLife.World.set(world, 0, 1, 1)
-      GameOfLife.World.set(world, 1, 1, 1)
-      GameOfLife.World.set(world, 2, 1, 1)
-
       current_state = GameOfLife.World.state(world)
 
       GameOfLife.update_cell(world, current_state, 0, 1)
