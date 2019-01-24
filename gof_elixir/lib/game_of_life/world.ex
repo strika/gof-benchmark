@@ -22,4 +22,11 @@ defmodule GameOfLife.World do
   def set(world, x, y, state) do
     Agent.update(world, fn world -> put_in(world[x][y], state) end)
   end
+
+  @doc """
+  Returns the current state of the world.
+  """
+  def state(world) do
+    Agent.get(world, fn state -> state end)
+  end
 end

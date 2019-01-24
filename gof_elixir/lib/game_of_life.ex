@@ -4,15 +4,13 @@ defmodule GameOfLife do
   """
 
   @doc """
-  It calculates the next state of the cell defined by the coordinates.
+  Updates the cell defined by the coordinates `x` and `y` state in the `world`.
   """
-  def next_cell_state(world, x, y) do
-    case GameOfLife.World.alive_in_neighborhood(world, x, y) do
-      3 -> 1
-      2 -> if GameOfLife.World.alive?(world, x, y) do 1 else 0 end
-      _ -> 0
-    end
+  def update_cell(world, world_state, x, y) do
+    new_state = GameOfLife.Cell.next_state(world_state, x, y)
+    GameOfLife.World.set(world, x, y, new_state)
   end
+
 
   @doc """
   It calculates the next state of all cells of the world.

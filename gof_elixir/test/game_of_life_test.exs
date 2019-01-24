@@ -1,76 +1,9 @@
 defmodule GameOfLifeTest do
   use ExUnit.Case, async: true
 
-  describe ".next_cell_state/3" do
-    test "when the cell is alive and it has less than 2 live neighbours, it dies" do
-      world = %{
-        0 => %{ 0 => 1, 1 => 0, 2 => 0 },
-        1 => %{ 0 => 0, 1 => 1, 2 => 0 },
-        2 => %{ 0 => 0, 1 => 0, 2 => 0 }
-      }
-
-      assert GameOfLife.next_cell_state(world, 1, 1) == 0
-    end
-
-    test "when the cell is alive and it has 2 live neighbours, it stays alive" do
-      world = %{
-        0 => %{ 0 => 1, 1 => 1, 2 => 0 },
-        1 => %{ 0 => 0, 1 => 1, 2 => 0 },
-        2 => %{ 0 => 0, 1 => 0, 2 => 0 }
-      }
-
-      assert GameOfLife.next_cell_state(world, 1, 1) == 1
-    end
-
-    test "when the cell is alive and it has 3 live neighbours, it stays alive" do
-      world = %{
-        0 => %{ 0 => 1, 1 => 1, 2 => 1 },
-        1 => %{ 0 => 0, 1 => 1, 2 => 0 },
-        2 => %{ 0 => 0, 1 => 0, 2 => 0 }
-      }
-
-      assert GameOfLife.next_cell_state(world, 1, 1) == 1
-    end
-
-    test "when the cell is alive and it has more than 3 live neighbours, it dies" do
-      world = %{
-        0 => %{ 0 => 1, 1 => 1, 2 => 1 },
-        1 => %{ 0 => 1, 1 => 1, 2 => 0 },
-        2 => %{ 0 => 0, 1 => 0, 2 => 0 }
-      }
-
-      assert GameOfLife.next_cell_state(world, 1, 1) == 0
-    end
-
-    test "when the cell is dead and it has less than 3 live neighbours, it stays dead" do
-      world = %{
-        0 => %{ 0 => 1, 1 => 1, 2 => 0 },
-        1 => %{ 0 => 0, 1 => 0, 2 => 0 },
-        2 => %{ 0 => 0, 1 => 0, 2 => 0 }
-      }
-
-      assert GameOfLife.next_cell_state(world, 1, 1) == 0
-    end
-
-    test "when the cell is dead and it has 3 live neighbours, it becomes alive" do
-      world = %{
-        0 => %{ 0 => 1, 1 => 1, 2 => 1 },
-        1 => %{ 0 => 0, 1 => 0, 2 => 0 },
-        2 => %{ 0 => 0, 1 => 0, 2 => 0 }
-      }
-
-      assert GameOfLife.next_cell_state(world, 1, 1) == 1
-    end
-
-    test "when the cell is dead and it has more than 3 live neighbours, it stays dead" do
-      world = %{
-        0 => %{ 0 => 1, 1 => 1, 2 => 1 },
-        1 => %{ 0 => 1, 1 => 0, 2 => 0 },
-        2 => %{ 0 => 0, 1 => 0, 2 => 0 }
-      }
-
-      assert GameOfLife.next_cell_state(world, 1, 1) == 0
-    end
+  setup do
+    world = start_supervised!({GameOfLife.World, 3})
+    %{world: world}
   end
 
   describe ".next_world_state/1" do
@@ -89,19 +22,21 @@ defmodule GameOfLifeTest do
     end
   end
 
-  describe ".update/4" do
-    test "calculates the next state of the cell", %{world: world} do
+  describe ".update_cell/4" do
+    test "calculates the next state of the cell", %{world: world}  do
       GameOfLife.World.set(world, 0, 1, 1)
       GameOfLife.World.set(world, 1, 1, 1)
       GameOfLife.World.set(world, 2, 1, 1)
 
-      world_state = Agent.get(world, fn state -> state end)
+      current_state = GameOfLife.World.state(world)
 
-      GameOfLife.Cell.update(world, world_state, 0, 1)
-      GameOfLife.Cell.update(world, world_state, 1, 0)
+      GameOfLife.update_cell(world, current_state, 0, 1)
+      GameOfLife.update_cell(world, current_state, 1, 0)
 
-      assert GameOfLife.World.get(world, 0, 1) == 0
-      assert GameOfLife.World.get(world, 1, 0) == 1
+      new_state = GameOfLife.World.state(world)
+
+      assert GameOfLife.Cell.state(new_state, 0, 1) == 0
+      assert GameOfLife.Cell.state(new_state, 1, 0) == 1
     end
   end
 end
