@@ -9,6 +9,8 @@ defmodule GameOfLife do
   def run do
     {:ok, world} = GameOfLife.World.start_link(100)
     parse_board(world)
+
+    save_board(world)
   end
 
   @doc """
@@ -33,16 +35,17 @@ defmodule GameOfLife do
   end
 
   defp parse_board(world) do
-    file = File.read!("board.csv")
-    lines = String.split(file)
-    values = Enum.map(lines, fn line -> String.split(line, ",") end)
+    board = File.read!("board.csv")
+    GameOfLife.Board.parse(board, world)
+  end
 
-    for x <- 0..99,
-        y <- 0..99 do
-          {:ok, row} = Enum.fetch(values, x)
-          {:ok, string_value} = Enum.fetch(row, y)
-          {value, _} = Integer.parse(string_value)
-          GameOfLife.World.set(world, x, y, value)
-        end
+  defp save_board(world) do
+    board = world
+            |> GameOfLife.World.state
+            |> Enum.map(fn {_, row} -> Map.values(row) end)
+            |> Enum.map(fn row -> Enum.join(row, ",") end)
+            |> Enum.join("\n")
+
+    File.write("result.csv", board)
   end
 end
