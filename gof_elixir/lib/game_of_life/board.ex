@@ -15,4 +15,15 @@ defmodule GameOfLife.Board do
           GameOfLife.World.set(world, x, y, value)
         end
   end
+
+  @doc """
+  Generates a string that represents the world state.
+  """
+  def generate(world) do
+    world
+    |> GameOfLife.World.state
+    |> Enum.map(fn {_, row} -> Map.values(row) end)
+    |> Enum.map(fn row -> Enum.join(row, ",") end)
+    |> Enum.join("\n")
+  end
 end
