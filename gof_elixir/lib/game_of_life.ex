@@ -40,12 +40,7 @@ defmodule GameOfLife do
   end
 
   defp save_board(world) do
-    board = world
-            |> GameOfLife.World.state
-            |> Enum.map(fn {_, row} -> Map.values(row) end)
-            |> Enum.map(fn row -> Enum.join(row, ",") end)
-            |> Enum.join("\n")
-
+    board = GameOfLife.Board.generate(world)
     File.write("result.csv", board)
   end
 end
