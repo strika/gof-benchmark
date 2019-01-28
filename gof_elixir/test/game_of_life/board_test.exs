@@ -6,11 +6,11 @@ defmodule GameOfLife.BoardTest do
     %{world: world}
   end
 
-  describe ".parse_board/2" do
+  describe ".parse/2" do
     test "parses the board into world", %{world: world} do
       board = "0,1,0\n1,0,1\n0,1,0"
 
-      GameOfLife.Board.parse_board(board, world)
+      GameOfLife.Board.parse(board, world)
 
       assert GameOfLife.World.state(world) == %{
         0 => %{ 0 => 0, 1 => 1, 2 => 0 },

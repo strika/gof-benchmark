@@ -2,7 +2,7 @@ defmodule GameOfLife.Board do
   @doc """
   Parses the board into the world.
   """
-  def parse_board(board, world) do
+  def parse(board, world) do
     lines = String.split(board)
     values = Enum.map(lines, fn line -> String.split(line, ",") end)
     board_size = length(values)
