@@ -22,7 +22,10 @@ defmodule GameOfLife.Board do
   def generate(world) do
     world
     |> GameOfLife.World.state
-    |> Enum.map(fn {_, row} -> Map.values(row) end)
+    |> Map.values
+    |> Enum.map(fn x -> Map.values(x) end)
+    |> Enum.zip
+    |> Enum.map(&Tuple.to_list/1)
     |> Enum.map(fn row -> Enum.join(row, ",") end)
     |> Enum.join("\n")
   end
