@@ -9,8 +9,8 @@ defmodule GameOfLife.Board do
 
     for x <- 0..(board_size - 1),
         y <- 0..(board_size - 1) do
-          {:ok, row} = Enum.fetch(values, x)
-          {:ok, string_value} = Enum.fetch(row, y)
+          {:ok, row} = Enum.fetch(values, y)
+          {:ok, string_value} = Enum.fetch(row, x)
           {value, _} = Integer.parse(string_value)
           GameOfLife.World.set(world, x, y, value)
         end
