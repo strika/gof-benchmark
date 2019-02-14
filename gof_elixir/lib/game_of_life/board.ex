@@ -20,13 +20,15 @@ defmodule GameOfLife.Board do
   Generates a string that represents the world state.
   """
   def generate(world) do
-    world
-    |> GameOfLife.World.state
-    |> Map.values
-    |> Enum.map(fn x -> Map.values(x) end)
-    |> Enum.zip
-    |> Enum.map(&Tuple.to_list/1)
-    |> Enum.map(fn row -> Enum.join(row, ",") end)
-    |> Enum.join("\n")
+    world_state = GameOfLife.World.state(world)
+    world_size = map_size(world_state)
+
+    rows = for y <- 0..(world_size - 1) do
+      0..(world_size - 1)
+      |> Enum.map(fn x -> GameOfLife.Cell.state(world_state, x, y) end)
+      |> Enum.join(",")
+    end
+
+    Enum.join(rows, "\n")
   end
 end

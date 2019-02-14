@@ -29,5 +29,12 @@ defmodule GameOfLife.BoardTest do
 
       assert GameOfLife.Board.generate(world) == "1,1,0\n0,1,0\n0,1,0"
     end
+
+    test "generates correct string when world is larger than 32x32" do
+      {:ok, world} = GameOfLife.World.start_link(33)
+      GameOfLife.World.set(world, 0, 0, 1)
+
+      assert String.first(GameOfLife.Board.generate(world)) == "1"
+    end
   end
 end
