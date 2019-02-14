@@ -2,11 +2,11 @@
 
 require "csv"
 
-BOARD_SIZE = 20
+BOARD_SIZE = 33
 
 def generate_board(size)
   Array.new(size) do
-    Array.new(size) { Random.rand(2) }
+    Array.new(size) { 0 }
   end
 end
 
