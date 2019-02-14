@@ -2,7 +2,7 @@
 
 require "csv"
 
-BOARD_SIZE = 100
+BOARD_SIZE = 20
 
 def generate_board(size)
   Array.new(size) do
