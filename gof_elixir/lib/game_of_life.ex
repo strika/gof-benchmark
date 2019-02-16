@@ -10,6 +10,16 @@ defmodule GameOfLife do
     {:ok, world} = GameOfLife.World.start_link(100)
     parse_board(world)
 
+    start = Time.utc_now
+
+    for _ <- 1..1000 do
+      update_world(world)
+    end
+
+    finish = Time.utc_now
+
+    IO.puts "Finished in #{Time.diff(finish, start, :millisecond)}"
+
     save_board(world)
   end
 
