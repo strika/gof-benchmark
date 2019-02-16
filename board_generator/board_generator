@@ -1,0 +1,17 @@
+#!/usr/bin/env ruby
+
+require "csv"
+
+BOARD_SIZE = 33
+
+def generate_board(size)
+  Array.new(size) do
+    Array.new(size) { 0 }
+  end
+end
+
+board = generate_board(BOARD_SIZE)
+
+CSV.open("board.csv", "w") do |csv|
+  board.each { |row| csv << row }
+end
