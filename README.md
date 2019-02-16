@@ -13,3 +13,11 @@ Ruby.
 Also, one of the goals is to check how "nice" a language is for implementing
 systems such as Game of Life, so striving for ultimate performance is not the
 goal.
+
+## Results
+
+1000 iterations with 100x100 board.
+
+Language | Note | Result (ms)
+---------|------|------------
+Elixir | Sequential | 174154
