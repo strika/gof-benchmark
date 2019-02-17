@@ -4,16 +4,23 @@ defmodule GameOfLife do
   """
 
   @doc """
+  Runs the experiment sequentially.
+  """
+  def run_sequentially do
+    run(&update_world_sequentially/1)
+  end
+
+  @doc """
   Runs the experiment.
   """
-  def run do
+  def run(update_function) do
     {:ok, world} = GameOfLife.World.start_link(100)
     parse_board(world)
 
     start = Time.utc_now
 
     for _ <- 1..1000 do
-      update_world(world)
+      update_function.(world)
     end
 
     finish = Time.utc_now
@@ -36,7 +43,7 @@ defmodule GameOfLife do
   It calculates the next state of all cells of the world and it updates the
   world.
   """
-  def update_world(world) do
+  def update_world_sequentially(world) do
     world_state = GameOfLife.World.state(world)
     for x <- Map.keys(world_state),
         y <- Map.keys(world_state[x]) do

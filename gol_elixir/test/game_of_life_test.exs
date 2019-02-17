@@ -11,9 +11,9 @@ defmodule GameOfLifeTest do
     %{world: world}
   end
 
-  describe ".update_world/1" do
+  describe ".update_world_sequentially/1" do
     test "calculates the next state of the world", %{world: world} do
-      GameOfLife.update_world(world)
+      GameOfLife.update_world_sequentially(world)
 
       assert GameOfLife.World.state(world) == %{
         0 => %{ 0 => 0, 1 => 0, 2 => 0 },
