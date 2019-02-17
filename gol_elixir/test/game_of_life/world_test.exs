@@ -27,4 +27,10 @@ defmodule GameOfLife.WorldTest do
       }
     end
   end
+
+  describe ".cells_count/1" do
+    test "returns the number of cells in the world", %{world: world} do
+      assert GameOfLife.World.cells_count(world) == 9
+    end
+  end
 end

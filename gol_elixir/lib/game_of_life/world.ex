@@ -29,4 +29,12 @@ defmodule GameOfLife.World do
   def state(world) do
     Agent.get(world, fn state -> state end)
   end
+
+  @doc """
+  Returns the number of cells in the world..
+  """
+  def cells_count(world) do
+    world_state = state(world)
+    map_size(world_state) * map_size(world_state[0])
+  end
 end
