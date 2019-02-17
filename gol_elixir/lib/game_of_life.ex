@@ -41,7 +41,7 @@ defmodule GameOfLife do
 
   @doc """
   It calculates the next state of all cells of the world and it updates the
-  world.
+  world sequentially..
   """
   def update_world_sequentially(world) do
     world_state = GameOfLife.World.state(world)
@@ -49,6 +49,29 @@ defmodule GameOfLife do
         y <- Map.keys(world_state[x]) do
           update_cell(world, world_state, x, y)
         end
+  end
+
+  @doc """
+  It calculates the next state of all cells of the world and it updates the
+  world by using a process for every cell.
+  """
+  def update_world_with_spawn(world) do
+    world_state = GameOfLife.World.state(world)
+    cells_count = GameOfLife.World.cells_count(world)
+    parent = self()
+
+    for x <- Map.keys(world_state),
+        y <- Map.keys(world_state[x]) do
+          spawn fn ->
+            send(parent, {x, y, GameOfLife.Cell.next_state(world_state, x, y)})
+          end
+        end
+
+    for _ <- 1..cells_count do
+      receive do
+        {x, y, state} -> GameOfLife.World.set(world, x, y, state)
+      end
+    end
   end
 
   defp parse_board(world) do
