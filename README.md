@@ -20,4 +20,4 @@ goal.
 
 Language | Note | Result (ms)
 ---------|------|------------
-Elixir | Sequential | 174154
+Elixir | Sequential | 169862

@@ -11,6 +11,13 @@ defmodule GameOfLife do
   end
 
   @doc """
+  Runs the experiment by updating every cell in a separate process.
+  """
+  def run_with_spawn do
+    run(&update_world_with_spawn/1)
+  end
+
+  @doc """
   Runs the experiment.
   """
   def run(update_function) do
