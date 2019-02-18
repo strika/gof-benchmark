@@ -35,6 +35,18 @@ defmodule GameOfLifeTest do
     end
   end
 
+  describe ".update_world_with_column_spawn/1" do
+    test "calculates the next state of the world", %{world: world} do
+      GameOfLife.update_world_with_column_spawn(world)
+
+      assert GameOfLife.World.state(world) == %{
+        0 => %{ 0 => 0, 1 => 0, 2 => 0 },
+        1 => %{ 0 => 1, 1 => 1, 2 => 1 },
+        2 => %{ 0 => 0, 1 => 0, 2 => 0 }
+      }
+    end
+  end
+
   describe ".update_cell/4" do
     test "calculates the next state of the cell", %{world: world}  do
       current_state = GameOfLife.World.state(world)

@@ -18,6 +18,13 @@ defmodule GameOfLife do
   end
 
   @doc """
+  Runs the experiment by updating every column in a separate process.
+  """
+  def run_with_column_spawn do
+    run(&update_world_with_column_spawn/1)
+  end
+
+  @doc """
   Runs the experiment.
   """
   def run(update_function) do
@@ -77,6 +84,33 @@ defmodule GameOfLife do
     for _ <- 1..cells_count do
       receive do
         {x, y, state} -> GameOfLife.World.set(world, x, y, state)
+      end
+    end
+  end
+
+  @doc """
+  It calculates the next state of all cells of the world and it updates the
+  world by using a process for every column.
+  """
+  def update_world_with_column_spawn(world) do
+    world_state = GameOfLife.World.state(world)
+    columns_count = map_size(world_state)
+    parent = self()
+
+    for x <- Map.keys(world_state) do
+        spawn fn ->
+          for y <- Map.keys(world_state[x]) do
+            cell_state = GameOfLife.Cell.next_state(world_state, x, y)
+            GameOfLife.World.set(world, x, y, cell_state)
+          end
+
+          send(parent, "done")
+        end
+      end
+
+    for _ <- 1..columns_count do
+      receive do
+        "done" ->
       end
     end
   end

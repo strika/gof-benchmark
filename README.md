@@ -16,9 +16,10 @@ goal.
 
 ## Results
 
-1000 iterations with 100x100 board.
+1000 iterations with 100x100 board. VM with 2 cores.
 
 Language | Note | Result (ms)
 ---------|------|------------
 Elixir | Sequential | 169,862
 Elixir | Every cell update in a separate process | 2,455,931
+Elixir | Every column in a separate process | 158,204
