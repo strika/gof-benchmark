@@ -16,4 +16,14 @@ RSpec.describe Cell do
       end
     end
   end
+
+  describe "#kill" do
+    it "makes the cell dead" do
+      cell = Cell.new(:alive => true)
+
+      cell.kill
+
+      expect(cell.alive?).to be_falsy
+    end
+  end
 end

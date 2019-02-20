@@ -6,4 +6,8 @@ class Cell
   def alive?
     @alive
   end
+
+  def kill
+    @alive = false
+  end
 end
