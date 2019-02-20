@@ -8,5 +8,12 @@ RSpec.describe Cell do
         expect(cell.alive?).to be_falsy
       end
     end
+
+    context "when cell is alive" do
+      it "returns true" do
+        cell = Cell.new(:alive => true)
+        expect(cell.alive?).to be_truthy
+      end
+    end
   end
 end
