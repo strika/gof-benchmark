@@ -14,4 +14,8 @@ class Cell
   def revive
     @alive = true
   end
+
+  def to_s
+    alive? ? "1" : "0"
+  end
 end

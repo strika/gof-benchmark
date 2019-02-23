@@ -36,4 +36,18 @@ RSpec.describe Cell do
       expect(cell.alive?).to be_truthy
     end
   end
+
+  describe "#to_s" do
+    context "when cell is dead" do
+      it "returns '0'" do
+        expect(Cell.new.to_s).to eq("0")
+      end
+    end
+
+    context "when cell is alive" do
+      it "returns '1'" do
+        expect(Cell.new(:alive => true).to_s).to eq("1")
+      end
+    end
+  end
 end
