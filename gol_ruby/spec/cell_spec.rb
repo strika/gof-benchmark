@@ -26,4 +26,14 @@ RSpec.describe Cell do
       expect(cell.alive?).to be_falsy
     end
   end
+
+  describe "#revive" do
+    it "makes the cell alive" do
+      cell = Cell.new
+
+      cell.revive
+
+      expect(cell.alive?).to be_truthy
+    end
+  end
 end
