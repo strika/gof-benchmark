@@ -23,3 +23,4 @@ Language | Note | Result (ms)
 Elixir | Sequential | 169,862
 Elixir | Every cell update in a separate process | 2,455,931
 Elixir | Every column in a separate process | 158,204
+Ruby | | 87,656
