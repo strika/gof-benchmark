@@ -4,7 +4,7 @@ class GameOfLife
   def run
     board = parse_board
 
-    puts board
+    File.write("result.csv", board)
   end
 
   def parse_board
@@ -12,7 +12,7 @@ class GameOfLife
     board_file = File.open("board.csv")
 
     board_file.each_with_index do |line, y|
-      row = line.split(",")
+      row = line.chomp.split(",")
       board ||= Board.new(row.length)
 
       row.each_with_index do |cell_state, x|
