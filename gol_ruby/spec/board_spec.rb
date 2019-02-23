@@ -11,4 +11,15 @@ RSpec.describe Board do
       expect(cell.alive?).to be_falsy
     end
   end
+
+  describe "#to_s" do
+    it "returns String representation of the board" do
+      board = Board.new(2)
+
+      board.get(0, 0).revive
+      board.get(1, 0).revive
+
+      expect(board.to_s).to eq("1,1\n0,0")
+    end
+  end
 end

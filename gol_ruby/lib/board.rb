@@ -10,6 +10,10 @@ class Board
   end
 
   def get(x, y)
-    @board[x][y]
+    @board[y][x]
+  end
+
+  def to_s
+    @board.map { |row| row.join(",") }.join("\n")
   end
 end
