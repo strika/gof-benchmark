@@ -88,4 +88,34 @@ RSpec.describe Board do
       expect(@board.alive_in_neighbourhood(2, 2)).to eq(0)
     end
   end
+
+  describe "#all_coordinates" do
+    it "returns coordinates for all cells in the board" do
+      board = Board.new(2)
+      expect(board.all_coordinates).to match_array([
+        [0, 0], [0, 1], [1, 0], [1, 1]
+      ])
+    end
+  end
+
+  describe "#next_state" do
+    # Board:
+    #
+    # 0 1 0
+    # 0 1 0
+    # 0 1 0
+
+    before do
+      @board = Board.new(3)
+      @board.get(1, 0).revive
+      @board.get(1, 1).revive
+      @board.get(1, 2).revive
+    end
+
+    it "calculates next state for each cell" do
+      @board.next_state
+
+      expect(@board.to_s).to eq("0,0,0\n1,1,1\n0,0,0")
+    end
+  end
 end

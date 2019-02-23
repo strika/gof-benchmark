@@ -32,6 +32,22 @@ class Board
         .count
   end
 
+  def next_state
+    cells = all_coordinates.map do |x, y|
+      [get(x, y), alive_in_neighbourhood(x, y)]
+    end
+
+    cells.map do |cell, alive_in_neighbourhood|
+      cell.next_state(alive_in_neighbourhood)
+    end
+  end
+
+  def all_coordinates
+    (0...@size).flat_map do |x|
+      (0...@size).map { |y| [x, y] }
+    end
+  end
+
   def to_s
     @board.map { |row| row.join(",") }.join("\n")
   end
