@@ -9,7 +9,12 @@ var Board = (function() {
     return board;
   }
 
+  function get(board, x, y) {
+    return board[y][x];
+  }
+
   return {
-    create: create
+    create: create,
+    get: get
   };
 }());
