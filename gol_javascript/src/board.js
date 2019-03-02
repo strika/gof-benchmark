@@ -1,10 +1,13 @@
 var Board = (function() {
   function create(size) {
-    var row = new Array(size),
-        board = new Array(size);
+    var board = [],
+        row = null;
 
-    row.fill(0);
-    board.fill(row);
+    for (var i = 0; i < size; i++) {
+      row = new Array(size);
+      row.fill(0);
+      board.push(row);
+    }
 
     return board;
   }
