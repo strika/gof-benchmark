@@ -12,17 +12,28 @@ describe("Board", function() {
   });
 
   describe(".get", function() {
-    it("returns a cell value", function() {
-      var board = [
+    var board;
+
+    beforeEach(function() {
+      board = [
         [1, 0, 0],
         [0, 0, 0],
         [0, 1, 0],
       ];
+    });
 
+    it("returns a cell value", function() {
       expect(Board.get(board, 0, 0)).toEqual(1);
       expect(Board.get(board, 1, 0)).toEqual(0);
       expect(Board.get(board, 1, 1)).toEqual(0);
       expect(Board.get(board, 1, 2)).toEqual(1);
+    });
+
+    it("returns 0 when a cell is out of bounds", function() {
+      expect(Board.get(board, -1, 0)).toEqual(0);
+      expect(Board.get(board, 0, -1)).toEqual(0);
+      expect(Board.get(board, 3, 0)).toEqual(0);
+      expect(Board.get(board, 0, 3)).toEqual(0);
     });
   });
 

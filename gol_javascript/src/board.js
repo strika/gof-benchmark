@@ -13,6 +13,10 @@ var Board = (function() {
   }
 
   function get(board, x, y) {
+    if (_outOfBounds(board, x, y)) {
+      return 0;
+    }
+
     return board[y][x];
   }
 
@@ -24,6 +28,10 @@ var Board = (function() {
 
   function aliveInNeighborhood(board, x, y) {
     return 0;
+  }
+
+  function _outOfBounds(board, x, y) {
+    return x < 0 || y < 0 || y >= board.length || x >= board[y].length;
   }
 
   return {
