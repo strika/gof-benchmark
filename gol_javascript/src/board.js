@@ -13,8 +13,15 @@ var Board = (function() {
     return board[y][x];
   }
 
+  function set(board, x, y, value) {
+    board[y][x] = value;
+
+    return board;
+  }
+
   return {
     create: create,
-    get: get
+    get: get,
+    set: set
   };
 }());

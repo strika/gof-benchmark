@@ -25,4 +25,20 @@ describe("Board", function() {
       expect(Board.get(board, 1, 2)).toEqual(1);
     });
   });
+
+  describe(".set", function() {
+    it("sets a cell value", function() {
+      var board = Board.create(3);
+
+      Board.set(board, 0, 0, 1);
+      Board.set(board, 1, 1, 1);
+      Board.set(board, 1, 2, 1);
+
+      expect(board).toEqual([
+        [1, 0, 0],
+        [0, 1, 0],
+        [0, 1, 0]
+      ]);
+    });
+  });
 });
