@@ -27,7 +27,11 @@ var Board = (function() {
   }
 
   function aliveInNeighborhood(board, x, y) {
-    return 0;
+    var neighborhood = neighborhoodCoordinates(x, y).map(coordinates =>
+      get(board, coordinates[0], coordinates[1])
+    );
+
+    return neighborhood.filter(cell => cell === 1).length;
   }
 
   function neighborhoodCoordinates(x, y) {
