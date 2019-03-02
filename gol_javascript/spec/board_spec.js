@@ -76,4 +76,20 @@ describe("Board", function() {
       ]);
     });
   });
+
+  describe(".nextState", function() {
+    it("returns next state state of board", function() {
+      var board = [
+        [0, 1, 0],
+        [0, 1, 0],
+        [0, 1, 0]
+      ];
+
+      expect(Board.nextState(board)).toEqual([
+        [0, 0, 0],
+        [1, 1, 1],
+        [0, 0, 0]
+      ]);
+    });
+  });
 });

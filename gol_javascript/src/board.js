@@ -48,6 +48,10 @@ var Board = (function() {
     return coordinates;
   }
 
+  function nextState(board) {
+    return [];
+  }
+
   function _outOfBounds(board, x, y) {
     return x < 0 || y < 0 || y >= board.length || x >= board[y].length;
   }
@@ -57,6 +61,7 @@ var Board = (function() {
     get: get,
     set: set,
     aliveInNeighborhood: aliveInNeighborhood,
-    neighborhoodCoordinates: neighborhoodCoordinates
+    neighborhoodCoordinates: neighborhoodCoordinates,
+    nextState: nextState
   };
 }());
