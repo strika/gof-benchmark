@@ -41,4 +41,20 @@ describe("Board", function() {
       ]);
     });
   });
+
+  describe(".aliveInNeighborhood", function() {
+    it("returns the number of alive cells in the neighboorhood", function() {
+      var board = [
+        [1, 0, 0],
+        [0, 1, 1],
+        [0, 1, 0],
+      ];
+
+      expect(Board.aliveInNeighborhood(board, 0, 0)).toEqual(1);
+      expect(Board.aliveInNeighborhood(board, 1, 0)).toEqual(3);
+      expect(Board.aliveInNeighborhood(board, 1, 1)).toEqual(3);
+      expect(Board.aliveInNeighborhood(board, 0, 2)).toEqual(2);
+      expect(Board.aliveInNeighborhood(board, 2, 2)).toEqual(3);
+    });
+  });
 });

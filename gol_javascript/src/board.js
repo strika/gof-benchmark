@@ -22,9 +22,14 @@ var Board = (function() {
     return board;
   }
 
+  function aliveInNeighborhood(board, x, y) {
+    return 0;
+  }
+
   return {
     create: create,
     get: get,
-    set: set
+    set: set,
+    aliveInNeighborhood: aliveInNeighborhood
   };
 }());
