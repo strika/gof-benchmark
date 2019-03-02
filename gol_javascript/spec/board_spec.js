@@ -68,4 +68,12 @@ describe("Board", function() {
       expect(Board.aliveInNeighborhood(board, 2, 2)).toEqual(3);
     });
   });
+
+  describe(".neighborhoodCoordinates", function() {
+    it("returns coordinates of the neighborhood cells", function() {
+      expect(Board.neighborhoodCoordinates(1, 1)).toEqual([
+        [0, 0], [1, 0], [2, 0], [0, 1], [2, 1], [0, 2], [1, 2], [2, 2]
+      ]);
+    });
+  });
 });

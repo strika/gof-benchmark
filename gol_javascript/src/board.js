@@ -30,6 +30,20 @@ var Board = (function() {
     return 0;
   }
 
+  function neighborhoodCoordinates(x, y) {
+    var coordinates = [];
+
+    for (var i = -1; i < 2; i++) {
+      for (var j = -1; j < 2; j++) {
+        if (i != 0 || j != 0) {
+          coordinates.push([x + j, y + i]);
+        }
+      }
+    }
+
+    return coordinates;
+  }
+
   function _outOfBounds(board, x, y) {
     return x < 0 || y < 0 || y >= board.length || x >= board[y].length;
   }
@@ -38,6 +52,7 @@ var Board = (function() {
     create: create,
     get: get,
     set: set,
-    aliveInNeighborhood: aliveInNeighborhood
+    aliveInNeighborhood: aliveInNeighborhood,
+    neighborhoodCoordinates: neighborhoodCoordinates
   };
 }());
