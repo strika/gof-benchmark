@@ -49,7 +49,17 @@ var Board = (function() {
   }
 
   function nextState(board) {
-    return [];
+    var newBoard = create(board.length),
+        newCell = null;
+
+    board.forEach(function(row, y) {
+      row.forEach(function(cell, x) {
+        newCell = Cell.nextState(cell, aliveInNeighborhood(board, x, y));
+        set(newBoard, x, y, newCell);
+      });
+    });
+
+    return newBoard;
   }
 
   function _outOfBounds(board, x, y) {
